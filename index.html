@@ -190,6 +190,29 @@ a { color: inherit; }
   padding-block: clamp(32px, 6vw, 80px) clamp(40px, 6vw, 72px);
   text-align: center;
 }
+.collage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 4vw, 64px);
+  width: 100%;
+  max-width: 1100px;
+}
+.ph {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  border: 2px solid var(--yellow);
+  filter: grayscale(1) contrast(1.15);
+  transition: filter .4s;
+  will-change: transform;
+}
+.ph:hover { filter: none; }
+.ph-l { justify-self: end; transform: rotate(-5deg); }
+.ph-r { justify-self: start; transform: rotate(4deg); }
 .hero .logo {
   width: clamp(180px, 24vw, 300px);
   height: auto;
@@ -254,6 +277,50 @@ a { color: inherit; }
 .fact { padding: 16px 16px 0 0; display: grid; gap: 6px; }
 .fact + .fact { border-left: 1px solid var(--ink); padding-left: 16px; }
 .fact b { font-size: clamp(56px, 7vw, 104px); line-height: 0.95; font-variant-numeric: tabular-nums; }
+
+.patch { margin: 0; display: grid; gap: 10px; justify-items: start; }
+.patch img {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  aspect-ratio: 488 / 640;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  border: 2px solid var(--ink);
+  transform: rotate(-3deg);
+}
+
+/* ---------- Professores ---------- */
+.professores { padding-block: 0 var(--section-gap); }
+.profs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.prof { background: var(--ink); color: var(--yellow); border-radius: var(--radius-card); padding: 12px 12px 24px; display: grid; gap: 10px; align-content: start; }
+.prof img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 16px;
+  filter: grayscale(1) contrast(1.1);
+  transition: filter .4s;
+}
+.prof:hover img { filter: none; }
+.prof p, .prof h3, .prof ul { margin: 0; padding-inline: 10px; }
+.prof p { padding-top: 8px; }
+.prof h3 { font-size: clamp(40px, 4vw, 60px); line-height: 0.95; }
+.prof ul { list-style: none; display: grid; gap: 6px; font-size: 15px; color: var(--ash-on-ink); }
+.prof li { padding-top: 6px; border-top: 1px solid var(--rule-on-ink); }
+td .ok {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: var(--yellow);
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+  vertical-align: middle;
+}
 
 /* ---------- Cabeçalhos de seção ---------- */
 .sec-head {
@@ -477,10 +544,15 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
 }
 @media (max-width: 820px) {
   .manifesto .cols, .primeira .split { grid-template-columns: minmax(0, 1fr); }
+  .profs { grid-template-columns: minmax(0, 1fr); max-width: 440px; }
+  .patch img { max-width: 260px; }
   .local .grid3 { grid-template-columns: minmax(0, 1fr); }
   .local .cell + .cell { border-left: 0; padding-left: 0; border-top: 1px solid var(--ink); padding-top: 16px; margin-top: 16px; }
 }
 @media (max-width: 640px) {
+  .collage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .collage .logo { grid-column: 1 / -1; grid-row: 1; justify-self: center; }
+  .ph { max-width: 100%; }
   .wm-line { display: block; }
   .wm-line + .wm-line { margin-left: 0; }
   .wordmark { line-height: 0.84; }
@@ -542,7 +614,11 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
 
 <section class="hero on-ink" id="hero" aria-label="Apresentação">
   <div class="wrap stage-in">
-    <img class="logo" id="heroLogo" src="logo.png" alt="Logo ACT Academia de Lutas, Caieiras – SP" width="426" height="426">
+    <div class="collage">
+      <img class="ph ph-l" id="phL" src="fotos/treino.jpg" alt="Dois alunos de kimono treinando Jiu-Jitsu no tatame" width="360" height="400">
+      <img class="logo" id="heroLogo" src="logo.png" alt="Logo ACT Academia de Lutas, Caieiras – SP" width="426" height="426">
+      <img class="ph ph-r" id="phR" src="fotos/moto.jpg" alt="Professor de kimono empinando uma moto dentro da academia, com a turma assistindo" width="480" height="490">
+    </div>
     <p class="meta addr">Av. Prof. Carvalho Pinto, 209 · 2º andar · Centro · Caieiras – SP</p>
     <div class="ctas">
       <a class="pill lg" href="#primeira-aula">Agendar aula experimental →</a>
@@ -559,7 +635,10 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
     <p class="meta muted" style="margin:0 0 20px">A academia</p>
     <h2 class="statement display" data-words>Há mais de 16 anos ensinando Caieiras a <span class="hit">cair</span>, levantar e voltar pro tatame.</h2>
     <div class="cols">
-      <span></span>
+      <figure class="patch rv">
+        <img src="fotos/patch.jpg" alt="Patch da Equipe ACT Jiu-Jitsu Caieiras – SP, desde 2008, nas costas de um kimono" width="488" height="640">
+        <figcaption class="meta muted">Equipe ACT Jiu-Jitsu · desde 2008</figcaption>
+      </figure>
       <p class="body rv">A ACT é uma academia especializada em lutas no <span class="muted">centro de Caieiras</span>. Homens, mulheres e crianças treinam no mesmo tatame, do primeiro dia de faixa branca até a preparação para competir. <span class="muted">Disciplina, saúde e performance.</span> Sem atalho.</p>
     </div>
     <div class="facts">
@@ -584,6 +663,52 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
   </div>
 </section>
 
+<section class="professores" id="professores">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="meta muted" style="margin:0">Equipe · 03</p>
+        <h2 class="sec-title display rv">Quem te treina</h2>
+      </div>
+    </div>
+    <div class="profs">
+      <article class="prof rv">
+        <img src="fotos/prof-covero.jpg" alt="Professor Covero de kimono branco e faixa preta" width="300" height="375">
+        <p class="meta muted">Jiu-Jitsu · Boxe</p>
+        <h3 class="display">Covero</h3>
+        <ul>
+          <li>Faixa preta 4º grau de Jiu-Jitsu</li>
+          <li>26 anos de Jiu-Jitsu</li>
+          <li>Dá aulas de Boxe desde 2009</li>
+          <li>Foco no combate e na técnica refinada</li>
+        </ul>
+      </article>
+      <article class="prof rv" style="--d:.1s">
+        <img src="fotos/prof-cacique.jpg" alt="Professor Cacique com camiseta de treino da Equipe ACT" width="300" height="375">
+        <p class="meta muted">Muay Thai</p>
+        <h3 class="display">Cacique</h3>
+        <ul>
+          <li>13 anos de Muay Thai</li>
+          <li>6 anos de grau preto</li>
+          <li>Especialista em clinch</li>
+          <li>Foco em efetividade e contundência</li>
+        </ul>
+      </article>
+      <article class="prof rv" style="--d:.2s">
+        <img src="fotos/prof-gabriela.jpg" alt="Professora Gabriela Neves de kimono branco" width="300" height="375">
+        <p class="meta muted">Jiu-Jitsu Kids · Feminino</p>
+        <h3 class="display">Gabriela Neves</h3>
+        <ul>
+          <li>Faixa marrom de Jiu-Jitsu</li>
+          <li>14 anos de Jiu-Jitsu</li>
+          <li>Fisioterapeuta</li>
+          <li>Especialista em defesa pessoal</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="horarios" id="horarios">
   <div class="wrap">
     <div class="sec-head">
@@ -593,7 +718,7 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
       </div>
       <div class="chips" role="tablist" aria-label="Dia da semana" id="days"></div>
     </div>
-    <p style="margin:0 0 16px"><span class="note">Grade de exemplo · horários reais a confirmar com a ACT</span></p>
+    <p style="margin:0 0 16px"><span class="note">Grade de exemplo · só as aulas marcadas como confirmadas vêm do Instagram da ACT</span></p>
     <div class="table-box">
       <table>
         <thead><tr><th>Horário</th><th>Modalidade</th><th>Turma</th></tr></thead>
@@ -674,6 +799,7 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
       </div>
       <nav aria-label="Rodapé">
         <a class="pill" href="#modalidades">Modalidades</a>
+        <a class="pill" href="#professores">Professores</a>
         <a class="pill" href="#horarios">Horários</a>
         <a class="pill" href="#primeira-aula">Aula experimental</a>
         <a class="pill" href="#local">Endereço</a>
@@ -704,7 +830,7 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
       texto: "Só os punhos, para atacar e defender. Base, esquiva, combinação e muito saco de pancada.",
       chip: "Rounds de 3 min" },
     { nome: "Jiu-Jitsu", origem: "Japão · Brasil", tags: ["chao"], turma: "Adulto",
-      texto: "Alavancas, torções e pressão para levar o oponente ao chão e dominar. Turmas para homens e mulheres.",
+      texto: "Alavancas, torções e pressão para levar o oponente ao chão e dominar. Turmas adulto e feminina.",
       chip: "Com kimono" },
     { nome: "Jiu-Jitsu Kids", origem: "Infantil", tags: ["chao", "kids"], turma: "Kids",
       texto: "Disciplina, atenção e coordenação desde cedo, num ambiente seguro e de respeito.",
@@ -722,29 +848,36 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
   ];
   var TAPE = ["Sem atalho", "Disciplina", "Respeito", "Suor", "Caieiras – SP", "Desde a faixa branca"];
 
-  // Grade de exemplo — substituir pelos horários reais da ACT.
-  var SEG_QUA_SEX = [
-    ["07:00", "Muay Thai", "Adulto · todos os níveis"],
+  // Grade de exemplo. Linhas com true no fim vêm das fichas dos professores no Instagram.
+  var SEG_QUA = [
+    ["07:00", "Jiu-Jitsu", "Adulto · Prof. Covero"],
     ["12:00", "Funcional + TRX", "Adulto"],
     ["18:00", "Jiu-Jitsu Kids", "5 a 12 anos"],
-    ["19:00", "Muay Thai", "Adulto · todos os níveis"],
-    ["20:00", "Jiu-Jitsu", "Adulto · com kimono"],
-    ["21:00", "Boxe", "Adulto"]
+    ["19:00", "Boxe", "Adulto · Prof. Covero"],
+    ["20:00", "Muay Thai", "Adulto · Prof. Cacique", true],
+    ["21:00", "Jiu-Jitsu", "Adulto · com kimono"]
   ];
   var TER_QUI = [
-    ["07:00", "Boxe", "Adulto"],
+    ["07:00", "Boxe", "Adulto · Prof. Covero"],
     ["12:00", "Funcional + TRX", "Adulto"],
-    ["18:00", "Jiu-Jitsu Kids", "5 a 12 anos"],
+    ["18:00", "Jiu-Jitsu Kids e Feminino", "Prof.ª Gabriela Neves", true],
     ["19:00", "Boxe", "Adulto · todos os níveis"],
     ["20:00", "Jiu-Jitsu", "Adulto · com kimono"],
     ["21:00", "Muay Thai", "Adulto · avançado"]
   ];
+  var SEX = [
+    ["07:00", "Jiu-Jitsu", "Adulto · Prof. Covero"],
+    ["12:00", "Funcional + TRX", "Adulto"],
+    ["18:00", "Jiu-Jitsu Kids", "5 a 12 anos"],
+    ["19:00", "Muay Thai", "Adulto · todos os níveis"],
+    ["20:00", "Jiu-Jitsu", "Adulto · com kimono"]
+  ];
   var DAYS = [
-    { id: "seg", nome: "Seg", slots: SEG_QUA_SEX },
+    { id: "seg", nome: "Seg", slots: SEG_QUA },
     { id: "ter", nome: "Ter", slots: TER_QUI },
-    { id: "qua", nome: "Qua", slots: SEG_QUA_SEX },
+    { id: "qua", nome: "Qua", slots: SEG_QUA },
     { id: "qui", nome: "Qui", slots: TER_QUI },
-    { id: "sex", nome: "Sex", slots: SEG_QUA_SEX },
+    { id: "sex", nome: "Sex", slots: SEX },
     { id: "sab", nome: "Sáb", slots: [
       ["09:00", "Jiu-Jitsu", "Treino livre · todas as faixas"],
       ["10:30", "Muay Thai", "Adulto · sparring orientado"]
@@ -909,7 +1042,9 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
       var tr = el("tr");
       tr.style.setProperty("--i", i);
       tr.appendChild(el("td", "time", s[0]));
-      tr.appendChild(el("td", "mod", s[1]));
+      var mod = el("td", "mod", s[1]);
+      if (s[3]) mod.appendChild(el("span", "ok", "Confirmado"));
+      tr.appendChild(mod);
       tr.appendChild(el("td", "turma", s[2]));
       slotsBody.appendChild(tr);
     });
@@ -980,6 +1115,8 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
   var intro = document.getElementById("intro");
   var hero = document.getElementById("hero");
   var heroLogo = document.getElementById("heroLogo");
+  var phL = document.getElementById("phL");
+  var phR = document.getElementById("phR");
   var primeira = document.getElementById("primeira-aula");
   var footer = document.getElementById("footer");
   var footWord = document.getElementById("footword");
@@ -1020,6 +1157,8 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
     if (hr.bottom > 0 && hr.top < vh) {
       var hp = clamp(-hr.top / hr.height, 0, 1);
       heroLogo.style.transform = "rotate(" + (hp * -28) + "deg) scale(" + (1 - hp * 0.18) + ")";
+      phL.style.transform = "translateY(" + (hp * -90) + "px) rotate(" + (-5 - hp * 6) + "deg)";
+      phR.style.transform = "translateY(" + (hp * 60) + "px) rotate(" + (4 + hp * 6) + "deg)";
     }
 
     // Faixas: aceleram com a rolagem e invertem com a direção
