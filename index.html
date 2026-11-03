@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="logo.png">
+<style>:root{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>ACT Lutas Caieiras</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="ACT Academia de Lutas — Muay Thai, Boxe, Jiu-Jitsu, Funcional e TRX no centro de Caieiras, SP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap">
+<style>
+/* Layout: cartaz brutalista em binário amarelo/preto. Abertura com o triângulo da logo
+   engolindo a tela, depois blocos pretos e amarelos alternados, cards 24px e pílulas. */
+:root {
+  --yellow: #FFCA08;        /* amarelo da logo */
+  --ink: #070708;           /* preto da logo, levemente quente */
+  --ink-raised: #151513;
+  --ash-on-yellow: #5C4A00; /* voz secundária sobre amarelo */
+  --ash-on-ink: #9A9483;    /* voz secundária sobre preto */
+  --rule-on-ink: #2E2D29;
+
+  --display: "Anton", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+  --sans: "Instrument Sans", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --radius-input: 8px;
+  --gutter: clamp(16px, 3vw, 40px);
+  --section-gap: clamp(64px, 9vw, 120px);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+body {
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.43;
+  letter-spacing: -0.005em;
+  font-feature-settings: "liga" 1, "ss12" 1;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.on-ink :focus-visible { outline-color: var(--yellow); }
+
+.wrap {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+/* ---------- Tipos utilitários ---------- */
+.meta { font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em; line-height: 1.4; }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.muted { color: var(--ash-on-yellow); }
+.on-ink .muted { color: var(--ash-on-ink); }
+
+/* ---------- Pílulas ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 5px 12px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color .15s, color .15s;
+}
+.pill:hover { background: var(--ink); color: var(--yellow); }
+.pill.is-quiet { border-color: var(--ash-on-yellow); color: var(--ash-on-yellow); }
+.pill.is-quiet:hover { border-color: var(--ink); color: var(--yellow); }
+.pill[aria-pressed="true"], .pill[aria-selected="true"] { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
+.pill.lg { font-size: 13px; padding: 10px 22px; }
+.on-ink .pill { color: var(--yellow); border-color: var(--yellow); }
+.on-ink .pill:hover { background: var(--yellow); color: var(--ink); }
+
+/* ---------- Abertura: o preto consome a tela ---------- */
+.intro { position: relative; height: 240vh; }
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+.layer > .wrap { width: 100%; }
+.layer-a { background: var(--yellow); color: var(--ink); }
+.layer-b {
+  background: var(--ink);
+  color: var(--yellow);
+  pointer-events: none;
+  clip-path: polygon(50% 88%, 56% 100%, 44% 100%);
+}
+.layer-b .pill, .layer-b .pill.is-quiet { color: var(--yellow); border-color: var(--yellow); }
+.layer-b .muted { color: var(--ash-on-ink); }
+.layer-b .caption { border-top-color: var(--yellow); }
+
+.topbar .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding-block: 14px;
+}
+.topbar nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.topbar nav.right { justify-content: flex-end; }
+.topbar .status { text-align: center; text-decoration: none; }
+.topbar .status:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.mark { flex: 1; display: flex; flex-direction: column; justify-content: center; will-change: transform; }
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-block: 8px 0;
+  border-top: 2px solid var(--ink);
+}
+.wordmark {
+  display: block;
+  margin: 0;
+  font-size: 17vw;            /* ajustado por script para encostar nas margens */
+  line-height: 0.86;
+  white-space: nowrap;
+  padding-block: 0.08em 0.04em;
+}
+.wm-in { display: inline-block; }
+.wm-line { display: inline-block; }
+.wm-line + .wm-line { margin-left: 0.18em; }
+.ch { display: inline-block; animation: slam .95s var(--ease-out) both; animation-delay: calc(var(--i) * 55ms + 120ms); }
+@keyframes slam {
+  from { transform: translateY(28%) skewY(9deg) scaleY(1.3); }
+}
+.stage-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  padding-block: 0 20px;
+}
+.cue { display: inline-flex; align-items: center; gap: 8px; }
+.cue i { font-style: normal; display: inline-block; animation: bob 1.4s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(5px); } }
+
+/* ---------- Hero preto ---------- */
+.hero {
+  background: var(--ink);
+  color: var(--yellow);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  overflow: hidden;
+}
+.hero .stage-in {
+  display: grid;
+  justify-items: center;
+  gap: 28px;
+  padding-block: clamp(32px, 6vw, 80px) clamp(40px, 6vw, 72px);
+  text-align: center;
+}
+.hero .logo {
+  width: clamp(180px, 24vw, 300px);
+  height: auto;
+  aspect-ratio: 1;
+  max-width: 100%;
+  border-radius: 50%;
+  display: block;
+  will-change: transform;
+}
+.hero .addr { color: var(--ash-on-ink); }
+.hero .ctas { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+.ticker { overflow: hidden; white-space: nowrap; }
+.ticker .track { display: inline-flex; will-change: transform; }
+.ticker .track span { font-size: clamp(48px, 7.5vw, 104px); line-height: 1; padding-right: 0.32em; }
+.ticker .track span.x { color: var(--ash-on-ink); }
+.hero .ticker { border-top: 1px solid var(--rule-on-ink); padding-block: 18px 20px; }
+
+/* ---------- Frases de impacto ---------- */
+.statement {
+  margin: 0;
+  font-size: clamp(42px, 6.6vw, 104px);
+  line-height: 1.02;
+  max-width: 15ch;
+  text-wrap: balance;
+  --full: var(--ink);
+  --dim: rgba(7, 7, 8, 0.28);
+}
+.on-ink .statement { --full: var(--yellow); --dim: rgba(255, 202, 8, 0.3); }
+.statement .w { color: var(--dim); transition: color .35s ease; }
+.statement .w.on { color: var(--full); }
+.hit {
+  --hb: var(--ink);
+  --hf: var(--yellow);
+  display: inline;
+  color: var(--hf);
+  background: linear-gradient(var(--hb), var(--hb)) no-repeat left 60% / 100% 0.96em;
+  padding: 0 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size .8s var(--ease-out), color .25s .35s;
+}
+.on-ink .hit { --hb: var(--yellow); --hf: var(--ink); }
+.hit.pre { background-size: 0% 0.96em; color: var(--hb); }
+
+/* ---------- Manifesto ---------- */
+.manifesto { padding-block: var(--section-gap); }
+.manifesto .cols {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 560px);
+  gap: 40px;
+  align-items: end;
+  margin-top: 48px;
+}
+.manifesto .body { font-size: clamp(19px, 1.7vw, 23px); line-height: 1.4; letter-spacing: -0.01em; margin: 0; }
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 2px solid var(--ink);
+  margin-top: 56px;
+}
+.fact { padding: 16px 16px 0 0; display: grid; gap: 6px; }
+.fact + .fact { border-left: 1px solid var(--ink); padding-left: 16px; }
+.fact b { font-size: clamp(56px, 7vw, 104px); line-height: 0.95; font-variant-numeric: tabular-nums; }
+
+/* ---------- Cabeçalhos de seção ---------- */
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 2px solid var(--ink);
+  margin-bottom: 28px;
+}
+.sec-title { margin: 8px 0 0; font-size: clamp(56px, 9vw, 144px); line-height: 0.9; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ---------- Revelação ao rolar ---------- */
+.rv { transition: transform 1s var(--ease-out) var(--d, 0s), opacity .8s ease var(--d, 0s); }
+.rv.pre { transform: translateY(56px) skewY(2deg); opacity: 0.2; }
+
+/* ---------- Modalidades ---------- */
+.modalidades { padding-block: 0 var(--section-gap); }
+.grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.card {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-card);
+  padding: 22px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  min-height: 380px;
+  transition: color .2s, transform 1s var(--ease-out) var(--d, 0s), opacity .8s ease var(--d, 0s);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--yellow);
+  clip-path: polygon(50% 100%, 50% 100%, 50% 100%);
+  transition: clip-path .45s var(--ease-out);
+}
+.card > * { position: relative; }
+.card .top { display: flex; justify-content: space-between; gap: 8px; color: var(--ash-on-ink); transition: color .2s; }
+.card h3 {
+  margin: 0;
+  align-self: end;
+  font-size: clamp(40px, 3.4vw, 56px);
+  line-height: 0.92;
+  text-wrap: balance;
+  transition: transform .45s var(--ease-out);
+}
+.card p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ash-on-ink); transition: color .2s; }
+.card .fact-chip {
+  justify-self: start;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+}
+.card .bottom { display: grid; gap: 14px; }
+.card:hover { color: var(--ink); }
+.card:hover::before { clip-path: polygon(50% -100%, 160% 100%, -60% 100%); }
+.card:hover h3 { transform: translateY(-6px) scale(1.04); transform-origin: left bottom; }
+.card:hover .top, .card:hover p { color: var(--ash-on-yellow); }
+.card.rv.pre { transform: translateY(64px) rotate(-1.5deg); opacity: 0.2; }
+.empty { padding: 24px 0; }
+
+/* ---------- Horários ---------- */
+.horarios { padding-block: 0 var(--section-gap); }
+.note {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px dashed var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+}
+.table-box { overflow-x: auto; border-top: 2px solid var(--ink); }
+table { width: 100%; border-collapse: collapse; min-width: 440px; }
+th, td { text-align: left; padding: 14px 12px 14px 0; border-bottom: 1px solid var(--ink); vertical-align: baseline; }
+th { font-weight: 400; font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ash-on-yellow); }
+td.time { font-family: var(--display); font-size: 32px; line-height: 1; width: 120px; font-variant-numeric: tabular-nums; }
+td.mod { font-size: 19px; }
+td.turma { color: var(--ash-on-yellow); font-size: 14px; }
+#slots tr { animation: rowIn .5s var(--ease-out) both; animation-delay: calc(var(--i) * 45ms); }
+@keyframes rowIn { from { transform: translateX(-24px); opacity: 0; } }
+
+/* ---------- Fita ---------- */
+.tape-zone { overflow: hidden; padding-block: 24px 72px; }
+.tape {
+  background: var(--ink);
+  color: var(--yellow);
+  transform: rotate(-2.5deg);
+  margin-inline: -6%;
+  padding-block: 12px 14px;
+}
+.tape .track span { font-size: clamp(40px, 5.5vw, 76px); }
+
+/* ---------- Primeira aula (preto) ---------- */
+.primeira {
+  background: var(--ink);
+  color: var(--yellow);
+  border-radius: var(--radius-card);
+  margin-inline: 8px;
+}
+.primeira .wrap { padding-block: var(--section-gap); }
+.primeira .split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  margin-top: 56px;
+}
+.steps { list-style: none; margin: 0; padding: 0; display: grid; }
+.steps li {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 16px;
+  padding-block: 20px;
+  border-top: 1px solid var(--rule-on-ink);
+}
+.steps li:last-child { border-bottom: 1px solid var(--rule-on-ink); }
+.steps .n { font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums; }
+.steps h4 { margin: 0 0 4px; font-weight: 400; font-size: 23px; letter-spacing: -0.01em; line-height: 1.25; }
+.steps p { margin: 0; color: var(--ash-on-ink); font-size: 15px; }
+
+.wa-card {
+  align-self: start;
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  border: 1.5px solid var(--yellow);
+  border-radius: var(--radius-card);
+  padding: clamp(22px, 3vw, 36px);
+}
+.wa-card p { margin: 0; }
+.wa-num { font-size: clamp(44px, 5.2vw, 76px); line-height: 0.95; font-variant-numeric: tabular-nums; }
+.wa-text { font-size: 19px; line-height: 1.4; max-width: 34ch; }
+.wa-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: inherit;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--yellow);
+  border-radius: var(--radius-pill);
+  padding: 16px 28px;
+  cursor: pointer;
+  transition: background-color .15s, color .15s, transform .2s var(--ease-out);
+}
+.wa-btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--yellow);
+  animation: ring 2.2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes ring { from { transform: scale(1); opacity: .8; } to { transform: scale(1.18, 1.5); opacity: 0; } }
+.wa-btn .arr { display: inline-block; transition: transform .25s var(--ease-out); }
+.wa-btn:hover { background: var(--ink); color: var(--yellow); }
+.wa-btn:hover .arr { transform: translateX(6px); }
+.wa-btn:active { transform: scale(.97); }
+
+/* ---------- Endereço ---------- */
+.local { padding-block: var(--section-gap); }
+.addr-big { margin: 0; font-size: clamp(52px, 8.4vw, 132px); line-height: 0.92; text-wrap: balance; }
+.local .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--ink); margin-top: 40px; }
+.local .cell { padding: 16px 16px 0 0; display: grid; gap: 10px; align-content: start; }
+.local .cell + .cell { border-left: 1px solid var(--ink); padding-left: 16px; }
+.local .big { font-size: 23px; letter-spacing: -0.01em; line-height: 1.3; }
+.phone { font-variant-numeric: tabular-nums; user-select: all; }
+.copy-msg { font-size: 12px; min-height: 1.2em; }
+
+/* ---------- Rodapé ---------- */
+footer { background: var(--ink); color: var(--yellow); border-radius: var(--radius-card) var(--radius-card) 0 0; overflow: hidden; }
+footer .wrap { padding-block: 40px 0; }
+footer .cols { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
+footer .brand { display: flex; align-items: center; gap: 14px; }
+footer .brand img { width: 56px; height: 56px; border-radius: 50%; }
+footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.foot-word { display: block; font-size: 17vw; line-height: 0.86; white-space: nowrap; margin-top: 40px; will-change: transform; }
+.draft-note { border-top: 1px solid var(--rule-on-ink); padding-block: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- Botão flutuante ---------- */
+.float-cta {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  background: var(--ink);
+  color: var(--yellow);
+  border-color: var(--yellow);
+  padding: 12px 20px;
+  font-size: 12px;
+  transform: translateY(calc(100% + 40px));
+  transition: transform .5s var(--ease-out), background-color .15s, color .15s;
+}
+.float-cta.show { transform: none; }
+.float-cta:hover { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 1180px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid > .card:last-child:nth-child(odd) { grid-column: span 2; min-height: 300px; }
+}
+@media (max-width: 1100px) {
+  .topbar .status { display: none; }
+  .topbar .wrap { grid-template-columns: 1fr auto; }
+}
+@media (max-width: 820px) {
+  .manifesto .cols, .primeira .split { grid-template-columns: minmax(0, 1fr); }
+  .local .grid3 { grid-template-columns: minmax(0, 1fr); }
+  .local .cell + .cell { border-left: 0; padding-left: 0; border-top: 1px solid var(--ink); padding-top: 16px; margin-top: 16px; }
+}
+@media (max-width: 640px) {
+  .wm-line { display: block; }
+  .wm-line + .wm-line { margin-left: 0; }
+  .wordmark { line-height: 0.84; }
+}
+@media (max-width: 560px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .card, .grid > .card:last-child:nth-child(odd) { min-height: 0; grid-column: auto; }
+  .card h3 { margin-top: 24px; }
+  .topbar .wrap { grid-template-columns: minmax(0, 1fr); }
+  .topbar nav.right { justify-content: flex-start; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .fact + .fact { border-left: 0; padding-left: 0; border-top: 1px solid var(--ink); margin-top: 16px; }
+  .wa-btn { width: 100%; justify-content: center; padding-inline: 16px; }
+  td.time { font-size: 26px; width: 84px; }
+  .stage-foot .mods { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro { height: auto; }
+  .stage { position: relative; height: auto; }
+  .layer-a { position: relative; min-height: 70vh; }
+  .layer-b { display: none; }
+  .ch, .cue i, #slots tr, .wa-btn::after { animation: none; }
+  .rv, .card, .card::before, .card h3, .hit, .statement .w, .pill, .float-cta { transition: none; }
+}
+</style>
+
+<div class="intro" id="intro">
+  <div class="stage">
+    <div class="layer layer-a" id="layerA">
+      <header class="topbar">
+        <div class="wrap">
+          <nav aria-label="Seções">
+            <a class="pill" href="#modalidades">Modalidades</a>
+            <a class="pill" href="#horarios">Horários</a>
+            <a class="pill is-quiet" href="#academia">A ACT</a>
+          </nav>
+          <a class="status label" href="#primeira-aula">Primeira aula experimental grátis · agende agora →</a>
+          <nav class="right" aria-label="Contato">
+            <a class="pill is-quiet" href="#local">Endereço</a>
+            <a class="pill" href="#primeira-aula">Agendar aula</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mark wrap" data-mark>
+        <div class="caption meta">
+          <span>ACT · Academia de Lutas</span>
+          <span>Caieiras — SP · Centro</span>
+          <span>+16 anos de tatame</span>
+        </div>
+        <h1 class="wordmark display" aria-label="ACT Lutas"><span class="wm-in"><span class="wm-line">ACT</span><span class="wm-line">Lutas</span></span></h1>
+      </div>
+      <div class="stage-foot wrap meta">
+        <span class="mods">Muay Thai · Boxe · Jiu-Jitsu · Funcional · TRX</span>
+        <span class="cue">Role para entrar <i aria-hidden="true">↓</i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="hero on-ink" id="hero" aria-label="Apresentação">
+  <div class="wrap stage-in">
+    <img class="logo" id="heroLogo" src="logo.png" alt="Logo ACT Academia de Lutas, Caieiras – SP" width="426" height="426">
+    <p class="meta addr">Av. Prof. Carvalho Pinto, 209 · 2º andar · Centro · Caieiras – SP</p>
+    <div class="ctas">
+      <a class="pill lg" href="#primeira-aula">Agendar aula experimental →</a>
+      <a class="pill lg" href="#modalidades">Ver modalidades</a>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="track display" id="track"></div>
+  </div>
+</section>
+
+<section class="manifesto" id="academia">
+  <div class="wrap">
+    <p class="meta muted" style="margin:0 0 20px">A academia</p>
+    <h2 class="statement display" data-words>Há mais de 16 anos ensinando Caieiras a <span class="hit">cair</span>, levantar e voltar pro tatame.</h2>
+    <div class="cols">
+      <span></span>
+      <p class="body rv">A ACT é uma academia especializada em lutas no <span class="muted">centro de Caieiras</span>. Homens, mulheres e crianças treinam no mesmo tatame, do primeiro dia de faixa branca até a preparação para competir. <span class="muted">Disciplina, saúde e performance.</span> Sem atalho.</p>
+    </div>
+    <div class="facts">
+      <div class="fact rv"><b class="display" data-to="16" data-suf="+">16+</b><span class="meta muted">Anos no centro de Caieiras</span></div>
+      <div class="fact rv" style="--d:.1s"><b class="display" data-to="5">5</b><span class="meta muted">Modalidades de luta e preparo</span></div>
+      <div class="fact rv" style="--d:.2s"><b class="display" data-to="5" data-suf="+">5+</b><span class="meta muted">Anos de idade para começar no Jiu-Jitsu Kids</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="modalidades" id="modalidades">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="meta muted" style="margin:0">Modalidades · <span id="count">05</span></p>
+        <h2 class="sec-title display rv">Escolha sua luta</h2>
+      </div>
+      <div class="chips" role="group" aria-label="Filtrar modalidades" id="filters"></div>
+    </div>
+    <div class="grid" id="cards"></div>
+    <p class="empty muted" id="empty" hidden>Nenhuma modalidade nesse filtro.</p>
+  </div>
+</section>
+
+<section class="horarios" id="horarios">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="meta muted" style="margin:0">Grade semanal</p>
+        <h2 class="sec-title display rv">Horários</h2>
+      </div>
+      <div class="chips" role="tablist" aria-label="Dia da semana" id="days"></div>
+    </div>
+    <p style="margin:0 0 16px"><span class="note">Grade de exemplo · horários reais a confirmar com a ACT</span></p>
+    <div class="table-box">
+      <table>
+        <thead><tr><th>Horário</th><th>Modalidade</th><th>Turma</th></tr></thead>
+        <tbody id="slots"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="tape-zone" aria-hidden="true">
+  <div class="tape ticker">
+    <div class="track display" id="tape"></div>
+  </div>
+</div>
+
+<section class="primeira on-ink" id="primeira-aula">
+  <div class="wrap">
+    <p class="meta muted" style="margin:0 0 20px">Primeira aula</p>
+    <h2 class="statement display" data-words>Ninguém entra pronto. A primeira aula é <span class="hit">por nossa conta</span>.</h2>
+    <div class="split">
+      <ol class="steps">
+        <li class="rv"><span class="n display">01</span><div><h4>Mande uma mensagem</h4><p>Pelo WhatsApp da ACT. Um toque no botão ao lado e a conversa abre.</p></div></li>
+        <li class="rv" style="--d:.1s"><span class="n display">02</span><div><h4>Escolha luta e horário</h4><p>A equipe indica a turma certa para o seu nível, do zero ao competidor.</p></div></li>
+        <li class="rv" style="--d:.2s"><span class="n display">03</span><div><h4>Venha treinar</h4><p>Roupa de treino e uma garrafa de água. O resto a gente ensina no tatame.</p></div></li>
+      </ol>
+
+      <div class="wa-card rv" style="--d:.15s">
+        <p class="meta muted">WhatsApp da ACT</p>
+        <p class="wa-num display">(11) 97303-4580</p>
+        <p class="wa-text">Chame a equipe, diga qual luta quer treinar e marque sua aula experimental.</p>
+        <button class="wa-btn" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+          <span>Chamar no WhatsApp</span>
+          <span class="arr" aria-hidden="true">→</span>
+        </button>
+        <p class="meta muted">Botão ilustrativo · na versão final abre a conversa direto com a ACT</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="local" id="local">
+  <div class="wrap">
+    <p class="meta muted" style="margin:0 0 20px">Onde treinar · Centro de Caieiras</p>
+    <h2 class="addr-big display rv">Av. Prof. Carvalho Pinto, 209 — 2º andar</h2>
+    <div class="grid3">
+      <div class="cell rv">
+        <span class="meta muted">Endereço</span>
+        <span class="big">Centro, Caieiras – SP<br>CEP 07700-210</span>
+        <a class="pill" style="justify-self:start" href="https://www.google.com/maps/search/?api=1&query=Av.+Prof.+Carvalho+Pinto,+209,+Caieiras+SP" target="_blank" rel="noopener">Abrir no mapa →</a>
+      </div>
+      <div class="cell rv" style="--d:.1s">
+        <span class="meta muted">WhatsApp</span>
+        <span class="big phone" id="phone">(11) 97303-4580</span>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="pill" type="button" id="copy">Copiar número</button>
+          <span class="copy-msg" id="copy-msg" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="cell rv" style="--d:.2s">
+        <span class="meta muted">Instagram</span>
+        <span class="big">@actcaieiras</span>
+        <a class="pill" style="justify-self:start" href="https://www.instagram.com/actcaieiras/" target="_blank" rel="noopener">Ver no Instagram →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="on-ink" id="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div class="brand">
+        <img src="logo.png" alt="" width="56" height="56">
+        <div>
+          <div style="font-size:16px">ACT Academia de Lutas</div>
+          <div class="meta muted">Caieiras – SP · Centro</div>
+        </div>
+      </div>
+      <nav aria-label="Rodapé">
+        <a class="pill" href="#modalidades">Modalidades</a>
+        <a class="pill" href="#horarios">Horários</a>
+        <a class="pill" href="#primeira-aula">Aula experimental</a>
+        <a class="pill" href="#local">Endereço</a>
+      </nav>
+    </div>
+    <span class="foot-word wordmark display" id="footword" aria-hidden="true"><span class="wm-in"><span class="wm-line">Caieiras–SP</span></span></span>
+  </div>
+  <div class="wrap">
+    <div class="draft-note meta muted">
+      <span>Proposta de site · versão de apresentação</span>
+      <span>© ACT Academia de Lutas</span>
+    </div>
+  </div>
+</footer>
+
+<a class="pill float-cta" id="floatCta" href="#primeira-aula">Agendar aula →</a>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var MODS = [
+    { nome: "Muay Thai", origem: "Tailândia", tags: ["pe"], turma: "Adulto",
+      texto: "A arte das oito armas. Punhos, cotovelos, joelhos e canelas em combinação, com preparo físico pesado.",
+      chip: "8 armas" },
+    { nome: "Boxe", origem: "Inglaterra", tags: ["pe"], turma: "Adulto",
+      texto: "Só os punhos, para atacar e defender. Base, esquiva, combinação e muito saco de pancada.",
+      chip: "Rounds de 3 min" },
+    { nome: "Jiu-Jitsu", origem: "Japão · Brasil", tags: ["chao"], turma: "Adulto",
+      texto: "Alavancas, torções e pressão para levar o oponente ao chão e dominar. Turmas para homens e mulheres.",
+      chip: "Com kimono" },
+    { nome: "Jiu-Jitsu Kids", origem: "Infantil", tags: ["chao", "kids"], turma: "Kids",
+      texto: "Disciplina, atenção e coordenação desde cedo, num ambiente seguro e de respeito.",
+      chip: "A partir de 5 anos" },
+    { nome: "Funcional + TRX", origem: "Condicionamento", tags: ["cond"], turma: "Adulto",
+      texto: "Circuito funcional e treino em suspensão no TRX para fôlego, força e resistência de luta.",
+      chip: "Corpo inteiro" }
+  ];
+  var FILTERS = [
+    { id: "todas", nome: "Todas" },
+    { id: "pe", nome: "Em pé" },
+    { id: "chao", nome: "Chão" },
+    { id: "kids", nome: "Kids" },
+    { id: "cond", nome: "Condicionamento" }
+  ];
+  var TAPE = ["Sem atalho", "Disciplina", "Respeito", "Suor", "Caieiras – SP", "Desde a faixa branca"];
+
+  // Grade de exemplo — substituir pelos horários reais da ACT.
+  var SEG_QUA_SEX = [
+    ["07:00", "Muay Thai", "Adulto · todos os níveis"],
+    ["12:00", "Funcional + TRX", "Adulto"],
+    ["18:00", "Jiu-Jitsu Kids", "5 a 12 anos"],
+    ["19:00", "Muay Thai", "Adulto · todos os níveis"],
+    ["20:00", "Jiu-Jitsu", "Adulto · com kimono"],
+    ["21:00", "Boxe", "Adulto"]
+  ];
+  var TER_QUI = [
+    ["07:00", "Boxe", "Adulto"],
+    ["12:00", "Funcional + TRX", "Adulto"],
+    ["18:00", "Jiu-Jitsu Kids", "5 a 12 anos"],
+    ["19:00", "Boxe", "Adulto · todos os níveis"],
+    ["20:00", "Jiu-Jitsu", "Adulto · com kimono"],
+    ["21:00", "Muay Thai", "Adulto · avançado"]
+  ];
+  var DAYS = [
+    { id: "seg", nome: "Seg", slots: SEG_QUA_SEX },
+    { id: "ter", nome: "Ter", slots: TER_QUI },
+    { id: "qua", nome: "Qua", slots: SEG_QUA_SEX },
+    { id: "qui", nome: "Qui", slots: TER_QUI },
+    { id: "sex", nome: "Sex", slots: SEG_QUA_SEX },
+    { id: "sab", nome: "Sáb", slots: [
+      ["09:00", "Jiu-Jitsu", "Treino livre · todas as faixas"],
+      ["10:30", "Muay Thai", "Adulto · sparring orientado"]
+    ] }
+  ];
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function clamp(v, a, b) { return Math.min(b, Math.max(a, v)); }
+  function easeInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+  /* ---------- Wordmark: letras que batem na tela ---------- */
+  var letterIndex = 0;
+  document.querySelectorAll("#layerA .wm-line").forEach(function (line) {
+    var txt = line.textContent;
+    line.textContent = "";
+    Array.prototype.forEach.call(txt, function (c) {
+      var s = el("span", "ch", c);
+      s.style.setProperty("--i", letterIndex++);
+      line.appendChild(s);
+    });
+  });
+
+  /* Camada preta: cópia da abertura, revelada pelo triângulo da logo */
+  var layerA = document.getElementById("layerA");
+  var layerB = layerA.cloneNode(true);
+  layerB.className = "layer layer-b";
+  layerB.removeAttribute("id");
+  layerB.setAttribute("aria-hidden", "true");
+  layerB.setAttribute("inert", "");
+  layerB.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+  layerB.querySelectorAll("a, button").forEach(function (n) { n.setAttribute("tabindex", "-1"); });
+  layerA.parentNode.appendChild(layerB);
+  var markA = layerA.querySelector("[data-mark]");
+  var markB = layerB.querySelector("[data-mark]");
+  var chromeB = layerB.querySelectorAll(".topbar, .stage-foot");
+
+  /* ---------- Faixas rolantes ---------- */
+  var track = document.getElementById("track");
+  var tape = document.getElementById("tape");
+  for (var r = 0; r < 2; r++) {
+    MODS.forEach(function (m) {
+      track.appendChild(el("span", "", m.nome));
+      track.appendChild(el("span", "x", "✕"));
+    });
+    TAPE.forEach(function (t) {
+      tape.appendChild(el("span", "", t));
+      tape.appendChild(el("span", "", "✕"));
+    });
+  }
+
+  /* ---------- Frases: palavras acendem conforme a rolagem ---------- */
+  var statements = [];
+  document.querySelectorAll("[data-words]").forEach(function (h) {
+    var units = [];
+    Array.prototype.slice.call(h.childNodes).forEach(function (node) {
+      if (node.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var w = el("span", "w", part);
+          units.push(w);
+          frag.appendChild(w);
+        });
+        h.replaceChild(frag, node);
+      } else {
+        units.push(node); // o bloco destacado tem animação própria
+      }
+    });
+    statements.push({ el: h, units: units, lit: -1 });
+  });
+
+  /* ---------- Revelação ao entrar na tela ---------- */
+  var io = null;
+  if (!reduce && "IntersectionObserver" in window) {
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.remove("pre");
+        if (e.target.dataset.to) countUp(e.target);
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+  }
+  function watch(node) {
+    if (!io) return;
+    if (node.getBoundingClientRect().top > window.innerHeight * 0.92) node.classList.add("pre");
+    io.observe(node);
+  }
+  function countUp(b) {
+    var to = +b.dataset.to, suf = b.dataset.suf || "", t0 = null;
+    function step(t) {
+      if (t0 === null) t0 = t;
+      var k = clamp((t - t0) / 1100, 0, 1);
+      b.textContent = Math.round(easeOut(k) * to) + (k === 1 ? suf : "");
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Modalidades + filtros ---------- */
+  var cards = document.getElementById("cards");
+  var filtersBox = document.getElementById("filters");
+  var countEl = document.getElementById("count");
+  var emptyEl = document.getElementById("empty");
+  var active = "todas";
+  var firstRender = true;
+
+  function renderCards() {
+    cards.textContent = "";
+    var list = MODS.filter(function (m) { return active === "todas" || m.tags.indexOf(active) > -1; });
+    list.forEach(function (m, i) {
+      var c = el("article", "card rv");
+      c.style.setProperty("--d", (i % 4) * 0.08 + "s");
+      var top = el("div", "top meta");
+      top.appendChild(el("span", "", m.origem));
+      top.appendChild(el("span", "", m.turma));
+      c.appendChild(top);
+      c.appendChild(el("h3", "display", m.nome));
+      var bottom = el("div", "bottom");
+      bottom.appendChild(el("p", "", m.texto));
+      bottom.appendChild(el("span", "fact-chip", m.chip));
+      c.appendChild(bottom);
+      cards.appendChild(c);
+      if (reduce) return;
+      if (firstRender) { watch(c); return; }
+      c.classList.add("pre");
+      requestAnimationFrame(function () { requestAnimationFrame(function () { c.classList.remove("pre"); }); });
+    });
+    firstRender = false;
+    countEl.textContent = String(list.length).padStart(2, "0");
+    emptyEl.hidden = list.length > 0;
+    Array.prototype.forEach.call(filtersBox.children, function (b) {
+      b.setAttribute("aria-pressed", b.dataset.id === active ? "true" : "false");
+    });
+  }
+  FILTERS.forEach(function (f) {
+    var b = el("button", "pill", f.nome);
+    b.type = "button";
+    b.dataset.id = f.id;
+    b.addEventListener("click", function () { active = f.id; renderCards(); });
+    filtersBox.appendChild(b);
+  });
+  renderCards();
+
+  /* ---------- Horários ---------- */
+  var daysBox = document.getElementById("days");
+  var slotsBody = document.getElementById("slots");
+  var today = new Date().getDay(); // 0 = domingo
+  var activeDay = DAYS[today === 0 ? 0 : today - 1].id;
+
+  function renderDay() {
+    var d = DAYS.filter(function (x) { return x.id === activeDay; })[0];
+    slotsBody.textContent = "";
+    d.slots.forEach(function (s, i) {
+      var tr = el("tr");
+      tr.style.setProperty("--i", i);
+      tr.appendChild(el("td", "time", s[0]));
+      tr.appendChild(el("td", "mod", s[1]));
+      tr.appendChild(el("td", "turma", s[2]));
+      slotsBody.appendChild(tr);
+    });
+    Array.prototype.forEach.call(daysBox.children, function (b) {
+      b.setAttribute("aria-selected", b.dataset.id === activeDay ? "true" : "false");
+    });
+  }
+  DAYS.forEach(function (d) {
+    var b = el("button", "pill", d.nome);
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.dataset.id = d.id;
+    b.addEventListener("click", function () { activeDay = d.id; renderDay(); });
+    daysBox.appendChild(b);
+  });
+  renderDay();
+
+  /* ---------- Copiar telefone ---------- */
+  var copyMsg = document.getElementById("copy-msg");
+  document.getElementById("copy").addEventListener("click", function () {
+    var phone = document.getElementById("phone");
+    function fallback() {
+      var range = document.createRange();
+      range.selectNodeContents(phone);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(range);
+      copyMsg.textContent = "Número selecionado. Use Ctrl+C.";
+    }
+    try {
+      navigator.clipboard.writeText("11973034580").then(function () { copyMsg.textContent = "Copiado."; }, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  /* ---------- Wordmarks de ponta a ponta ---------- */
+  function fitAll() {
+    document.querySelectorAll(".wordmark").forEach(function (h) {
+      var inner = h.querySelector(".wm-in");
+      var box = h.parentElement;
+      var cs = getComputedStyle(box);
+      var avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      h.style.fontSize = "100px";
+      var w = inner.getBoundingClientRect().width;
+      if (w > 0) h.style.fontSize = (100 * avail / w * 0.995) + "px";
+    });
+  }
+  fitAll();
+  if (document.fonts && document.fonts.load) document.fonts.load('100px "Anton"', "ACT LUTAS").then(fitAll, fitAll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  window.addEventListener("resize", fitAll);
+
+  /* ---------- Rolagem suave ---------- */
+  var lenis = null;
+  if (!reduce && window.Lenis) {
+    try { lenis = new window.Lenis({ lerp: 0.085, wheelMultiplier: 0.9 }); } catch (e) { lenis = null; }
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var target = document.querySelector(a.getAttribute("href"));
+    if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { duration: 1.6 });
+    else target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  });
+
+  document.querySelectorAll(".rv:not(.card), .hit, .fact b").forEach(watch);
+
+  /* ---------- Cena: tudo que se move com a rolagem ---------- */
+  var intro = document.getElementById("intro");
+  var hero = document.getElementById("hero");
+  var heroLogo = document.getElementById("heroLogo");
+  var primeira = document.getElementById("primeira-aula");
+  var footer = document.getElementById("footer");
+  var footWord = document.getElementById("footword");
+  var floatCta = document.getElementById("floatCta");
+  var tickers = [
+    { el: track, off: 0, sign: 1 },
+    { el: tape, off: -200, sign: -1 }
+  ];
+  var lastY = window.scrollY, vel = 0, dir = 1, lastT = performance.now();
+
+  function update(t) {
+    var vh = window.innerHeight;
+    var dt = Math.min(64, t - lastT); lastT = t;
+    var y = window.scrollY;
+    var dy = y - lastY; lastY = y;
+    vel = vel * 0.86 + dy * 0.14;
+    if (Math.abs(dy) > 0.5) dir = dy > 0 ? 1 : -1;
+
+    // Abertura: o triângulo preto cresce até engolir a tela
+    var ir = intro.getBoundingClientRect();
+    var p = clamp(-ir.top / Math.max(1, ir.height - vh), 0, 1);
+    floatCta.classList.toggle("show", p >= 1 || reduce && ir.bottom < vh * 0.5);
+    if (!reduce && ir.bottom > 0) {
+      var g = 0.06 + 0.94 * easeInOut(clamp(p / 0.72, 0, 1));
+      var apex = 100 - 200 * g, hb = 100 * g;
+      layerB.style.clipPath = "polygon(50% " + apex + "%, " + (50 + hb) + "% 100%, " + (50 - hb) + "% 100%)";
+      var lift = -p * 7;
+      markA.style.transform = "translateY(" + lift + "vh)";
+      var q = easeInOut(clamp((p - 0.72) / 0.28, 0, 1));
+      markB.style.transform = "translateY(" + lift + "vh) scale(" + (1 + q * 0.5) + ")";
+      markB.style.opacity = 1 - q;
+      chromeB.forEach(function (n) { n.style.opacity = 1 - q; });
+    }
+    if (reduce) return;
+
+    // Logo do bloco preto gira levemente ao sair
+    var hr = hero.getBoundingClientRect();
+    if (hr.bottom > 0 && hr.top < vh) {
+      var hp = clamp(-hr.top / hr.height, 0, 1);
+      heroLogo.style.transform = "rotate(" + (hp * -28) + "deg) scale(" + (1 - hp * 0.18) + ")";
+    }
+
+    // Faixas: aceleram com a rolagem e invertem com a direção
+    var skew = clamp(-vel * 0.35, -9, 9);
+    tickers.forEach(function (k) {
+      var half = k.el.scrollWidth / 2;
+      if (!half) return;
+      k.off -= (dt * 0.05 + Math.abs(vel) * 0.9) * dir * k.sign;
+      if (k.off <= -half) k.off += half;
+      if (k.off > 0) k.off -= half;
+      k.el.style.transform = "translate3d(" + k.off + "px,0,0) skewX(" + skew + "deg)";
+    });
+
+    // Frases: acendem palavra por palavra
+    statements.forEach(function (s) {
+      var r = s.el.getBoundingClientRect();
+      var start = vh * 0.9, end = vh * 0.3;
+      var sp = clamp((start - r.top) / (start - end + r.height * 0.4), 0, 1);
+      var n = Math.round(sp * s.units.length);
+      if (n === s.lit) return;
+      s.lit = n;
+      s.units.forEach(function (u, i) { u.classList.toggle("on", i < n); });
+    });
+
+    // Bloco preto da primeira aula abre até ocupar a largura
+    var pr = primeira.getBoundingClientRect();
+    if (pr.top < vh && pr.bottom > 0) {
+      var e = easeOut(clamp((vh - pr.top) / (vh * 0.75), 0, 1));
+      var maxInset = Math.min(window.innerWidth * 0.08, 110);
+      primeira.style.marginInline = (8 + (1 - e) * maxInset) + "px";
+      primeira.style.borderRadius = (24 + (1 - e) * 56) + "px";
+    }
+
+    // Rodapé: CAIEIRAS–SP entra deslizando
+    var fr = footer.getBoundingClientRect();
+    if (fr.top < vh) {
+      var fp = easeOut(clamp((vh - fr.top) / (fr.height + vh * 0.2), 0, 1));
+      footWord.style.transform = "translateX(" + ((1 - fp) * 30) + "%)";
+    }
+  }
+
+  function frame(t) {
+    if (lenis) lenis.raf(t);
+    update(t);
+    requestAnimationFrame(frame);
+  }
+  if (reduce) {
+    statements.forEach(function (s) { s.units.forEach(function (u) { u.classList.add("on"); }); });
+    window.addEventListener("scroll", function () { update(performance.now()); }, { passive: true });
+    update(performance.now());
+  } else {
+    requestAnimationFrame(frame);
+  }
+})();
+</script>
+
+</body>
+</html>
