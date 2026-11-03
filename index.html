@@ -352,8 +352,8 @@ td .ok {
   border-radius: var(--radius-card);
   padding: 22px;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 20px;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 16px;
   min-height: 380px;
   transition: color .2s, transform 1s var(--ease-out) var(--d, 0s), opacity .8s ease var(--d, 0s);
 }
@@ -366,6 +366,28 @@ td .ok {
   transition: clip-path .45s var(--ease-out);
 }
 .card > * { position: relative; }
+.card-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 14px;
+  filter: grayscale(1) contrast(1.15);
+  transition: filter .35s;
+}
+.card:hover .card-img { filter: none; }
+.card-img-type {
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(-45deg, var(--yellow) 0 14px, var(--ink) 14px 28px);
+  color: var(--ink);
+  font-size: clamp(28px, 2.6vw, 40px);
+  text-align: center;
+  filter: none;
+}
+.card-img-type span { background: var(--yellow); padding: 2px 10px; }
 .card .top { display: flex; justify-content: space-between; gap: 8px; color: var(--ash-on-ink); transition: color .2s; }
 .card h3 {
   margin: 0;
@@ -537,6 +559,7 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
 @media (max-width: 1180px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid > .card:last-child:nth-child(odd) { grid-column: span 2; min-height: 300px; }
+  .grid > .card:last-child:nth-child(odd) .card-img { aspect-ratio: 16 / 6; }
 }
 @media (max-width: 1100px) {
   .topbar .status { display: none; }
@@ -617,7 +640,7 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
     <div class="collage">
       <img class="ph ph-l" id="phL" src="fotos/treino.jpg" alt="Dois alunos de kimono treinando Jiu-Jitsu no tatame" width="360" height="400">
       <img class="logo" id="heroLogo" src="logo.png" alt="Logo ACT Academia de Lutas, Caieiras – SP" width="426" height="426">
-      <img class="ph ph-r" id="phR" src="fotos/moto.jpg" alt="Professor de kimono empinando uma moto dentro da academia, com a turma assistindo" width="480" height="490">
+      <img class="ph ph-r" id="phR" src="fotos/nogi.jpg" alt="Atleta da Equipe ACT em treino de Jiu-Jitsu sem kimono" width="196" height="260">
     </div>
     <p class="meta addr">Av. Prof. Carvalho Pinto, 209 · 2º andar · Centro · Caieiras – SP</p>
     <div class="ctas">
@@ -823,16 +846,20 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var MODS = [
-    { nome: "Muay Thai", origem: "Tailândia", tags: ["pe"], turma: "Adulto",
+    { nome: "Muay Thai", origem: "Tailândia", tags: ["pe"], turma: "Adulto", foto: "fotos/mod-muay-thai.jpg",
+      alt: "Lutador de Muay Thai acertando um chute alto no adversário durante o treino",
       texto: "A arte das oito armas. Punhos, cotovelos, joelhos e canelas em combinação, com preparo físico pesado.",
       chip: "8 armas" },
-    { nome: "Boxe", origem: "Inglaterra", tags: ["pe"], turma: "Adulto",
+    { nome: "Boxe", origem: "Inglaterra", tags: ["pe"], turma: "Adulto", foto: "fotos/mod-boxe.jpg",
+      alt: "Dois alunos trocando golpes em treino de Boxe na ACT",
       texto: "Só os punhos, para atacar e defender. Base, esquiva, combinação e muito saco de pancada.",
       chip: "Rounds de 3 min" },
-    { nome: "Jiu-Jitsu", origem: "Japão · Brasil", tags: ["chao"], turma: "Adulto",
+    { nome: "Jiu-Jitsu", origem: "Japão · Brasil", tags: ["chao"], turma: "Adulto", foto: "fotos/mod-jiu-jitsu.jpg",
+      alt: "Alunos de kimono treinando Jiu-Jitsu na guarda",
       texto: "Alavancas, torções e pressão para levar o oponente ao chão e dominar. Turmas adulto e feminina.",
       chip: "Com kimono" },
-    { nome: "Jiu-Jitsu Kids", origem: "Infantil", tags: ["chao", "kids"], turma: "Kids",
+    { nome: "Jiu-Jitsu Kids", origem: "Infantil", tags: ["chao", "kids"], turma: "Kids", foto: "fotos/mod-kids.jpg",
+      alt: "Turma infantil de Jiu-Jitsu de kimono no tatame da ACT",
       texto: "Disciplina, atenção e coordenação desde cedo, num ambiente seguro e de respeito.",
       chip: "A partir de 5 anos" },
     { nome: "Funcional + TRX", origem: "Condicionamento", tags: ["cond"], turma: "Adulto",
@@ -1002,6 +1029,16 @@ footer nav { display: flex; gap: 6px; flex-wrap: wrap; }
       top.appendChild(el("span", "", m.origem));
       top.appendChild(el("span", "", m.turma));
       c.appendChild(top);
+      if (m.foto) {
+        var img = el("img", "card-img");
+        img.src = m.foto;
+        img.alt = m.alt;
+        c.appendChild(img);
+      } else {
+        var ph = el("div", "card-img card-img-type display");
+        ph.appendChild(el("span", "", m.nome));
+        c.appendChild(ph);
+      }
       c.appendChild(el("h3", "display", m.nome));
       var bottom = el("div", "bottom");
       bottom.appendChild(el("p", "", m.texto));
